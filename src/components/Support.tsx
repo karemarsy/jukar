@@ -11,10 +11,10 @@ import { Icon, SectionLabel } from "./ui";
 function WhereItGoes() {
   return (
     <figure className="max-w-md lg:mt-12">
-      <svg viewBox="0 0 400 130" className="w-full" role="img" aria-labelledby="where-title">
+      <svg viewBox="0 0 445 130" className="w-full" role="img" aria-labelledby="where-title">
         <title id="where-title">One contribution helps children go to school and supports them with care.</title>
         <path
-          d="M24 65h126c30 0 34-42 66-42h20M150 65c30 0 34 42 66 42h20"
+          d="M24 65h166c24 0 28-42 54-42h14M190 65c24 0 28 42 54 42h14"
           fill="none"
           stroke="var(--color-paper)"
           strokeOpacity=".55"
@@ -23,13 +23,14 @@ function WhereItGoes() {
           strokeLinecap="round"
         />
         <circle cx="20" cy="65" r="10" fill="var(--color-sun)" />
-        <circle cx="236" cy="23" r="6" fill="var(--color-paper)" />
-        <circle cx="236" cy="107" r="6" fill="var(--color-paper)" />
-        <g fill="var(--color-paper)" fontSize="17" style={{ fontFamily: "var(--font-sans)" }}>
-          <text x="252" y="29">{activities.school.kicker}</text>
-          <text x="252" y="113">{activities.care.kicker}</text>
+        <circle cx="264" cy="23" r="6" fill="var(--color-paper)" />
+        <circle cx="264" cy="107" r="6" fill="var(--color-paper)" />
+        {/* Font sizes are in SVG units: the figure shrinks on phones, so they start generous. */}
+        <g fill="var(--color-paper)" fontSize="20" style={{ fontFamily: "var(--font-sans)" }}>
+          <text x="277" y="30">{activities.school.kicker}</text>
+          <text x="277" y="114">{activities.care.kicker}</text>
         </g>
-        <text x="0" y="98" fill="var(--color-sun-soft)" fontSize="12.5" fontWeight="600" letterSpacing="1.8" style={{ fontFamily: "var(--font-sans)" }}>
+        <text x="0" y="100" fill="var(--color-sun-soft)" fontSize="14" fontWeight="600" letterSpacing="1.1" style={{ fontFamily: "var(--font-sans)" }}>
           YOUR CONTRIBUTION
         </text>
       </svg>
@@ -118,7 +119,7 @@ export function Support({ number = "06" }: { number?: string }) {
         </div>
 
         <div className="lg:col-span-7 lg:col-start-6 lg:row-span-2 lg:row-start-1">
-          <div className="relative rounded-sm bg-sheet p-6 text-ink shadow-[0_50px_90px_-40px_rgb(0_0_0/0.65)] sm:p-10 on-light">
+          <div className="on-light relative rounded-sm bg-sheet p-5 text-ink shadow-[0_50px_90px_-40px_rgb(0_0_0/0.65)] min-[360px]:p-6 sm:p-10">
             {mm.available ? (
               <MobileMoneyInstructions method={mm} />
             ) : (

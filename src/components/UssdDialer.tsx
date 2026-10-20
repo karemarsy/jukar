@@ -41,7 +41,7 @@ export function UssdDialer({
   const [before, after] = displayCode.split("AMOUNT");
 
   return (
-    <div className="mt-7 rounded-md border border-ink/15 bg-paper/60 p-5">
+    <div className="mt-6 rounded-md border border-ink/15 bg-paper/60 p-4 min-[360px]:p-5">
       <label htmlFor={`${id}-amount`} className="label block text-ink-soft">
         Amount ({currency})
       </label>
@@ -66,7 +66,7 @@ export function UssdDialer({
       </p>
       <p
         aria-labelledby={`${id}-code-label`}
-        className="mt-1.5 font-sans text-lg font-semibold text-ink tabular-nums sm:text-xl"
+        className="mt-1.5 font-sans text-base font-semibold text-ink tabular-nums min-[360px]:text-lg sm:text-xl"
       >
         {filled ? (
           breakAfterStars(filled)
@@ -79,7 +79,7 @@ export function UssdDialer({
         )}
       </p>
 
-      <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+      <div className="mt-4 flex flex-col gap-2 sm:flex-row [&_.btn]:px-4 [&_.btn]:whitespace-nowrap min-[360px]:[&_.btn]:px-[1.4rem]">
         {dialHref ? (
           <a href={dialHref} className="btn btn-primary">
             <Icon name="phone" className="h-5 w-5" />

@@ -34,17 +34,20 @@ export function Mission() {
 
         <aside aria-labelledby="needs-title" className="reveal lg:col-span-5 lg:pt-28">
           <div
-            className="ruled relative -rotate-1 bg-sheet px-6 pt-6 pb-4 shadow-[0_24px_50px_-30px_rgb(28_30_26/0.45)] sm:px-8"
+            className="ruled relative -rotate-1 bg-sheet px-4 pt-6 pb-4 shadow-[0_24px_50px_-30px_rgb(28_30_26/0.45)] min-[360px]:px-6 sm:px-8"
             style={{ "--line": "3rem" } as CSSProperties}
           >
             <span aria-hidden="true" className="tape -top-3 left-1/2 -translate-x-1/2 rotate-2" />
-            <h3 id="needs-title" className="hand text-[2rem] leading-[3rem] text-clay-ink">
+            <h3 id="needs-title" className="hand text-[1.65rem] leading-[3rem] text-clay-ink min-[360px]:text-[1.85rem] sm:text-[2rem]">
               {mission.needsTitle}
             </h3>
             <ul className="mt-0">
               {mission.needs.map((need) => (
-                <li key={need} className="flex items-center gap-3 font-display text-[1.15rem] leading-[3rem] text-ink sm:text-xl">
-                  <HandCheck className="h-6 w-6 shrink-0 text-ink" />
+                <li
+                  key={need}
+                  className="flex items-center gap-2.5 font-display text-[0.98rem] leading-[3rem] whitespace-nowrap text-ink min-[360px]:text-[1.08rem] sm:gap-3 sm:text-xl"
+                >
+                  <HandCheck className="h-5 w-5 shrink-0 text-ink sm:h-6 sm:w-6" />
                   {need}
                 </li>
               ))}

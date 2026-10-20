@@ -50,7 +50,7 @@ export function Story({ number = "05" }: { number?: string }) {
 
         <div className="lg:col-span-7">
           <div
-            className="ruled margin-rule relative bg-sheet pt-[4.8rem] pr-6 pb-[2.4rem] pl-10 shadow-[0_30px_60px_-36px_rgb(28_30_26/0.5)] sm:pr-12 sm:pl-16 [&::before]:left-6 sm:[&::before]:left-10"
+            className="ruled margin-rule relative bg-sheet pt-[2.4rem] pr-5 pb-[2.4rem] pl-10 sm:pt-[4.8rem] shadow-[0_30px_60px_-36px_rgb(28_30_26/0.5)] sm:pr-12 sm:pl-16 [&::before]:left-6 sm:[&::before]:left-10"
             style={{ "--line": "2.4rem" } as CSSProperties}
           >
             {/* Each line of text sits on a ruled line: top padding and spacing are whole multiples of --line. */}
