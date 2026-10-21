@@ -110,12 +110,9 @@ export function GalleryCarousel({ items }: { items: CarouselItem[] }) {
   const canAutoplay = !reduce && !small && n > 1;
   const playing = canAutoplay && !userPaused && !hovered && !focused && inView && pageVisible && viewer === null;
 
-  // Gentle autoplay. Keyed on `active`, so any manual move restarts the wait.
-  useEffect(() => {
-    if (!playing) return;
-    const id = setTimeout(() => move(1), AUTO_MS);
-    return () => clearTimeout(id);
-  }, [playing, active, move]);
+  // Autoplay is driven by the active progress bar: when it has filled up, the next picture
+  // comes into focus. Pausing freezes the bar, so playing resumes exactly where it stopped,
+  // and any manual move starts a fresh bar.
 
   const step = (dir: 1 | -1) => {
     clearInterval(stepTimer.current);
@@ -202,7 +199,9 @@ export function GalleryCarousel({ items }: { items: CarouselItem[] }) {
           role="region"
           aria-roledescription="carousel"
           aria-label="Gallery of learning moments"
-          onFocus={() => setFocused(true)}
+          // Pause for keyboard users moving through the gallery, but not after a mouse click
+          // (which also focuses a button), and never because the Play button itself has focus.
+          onFocus={(e) => setFocused(e.target.matches(":focus-visible") && !e.target.hasAttribute("data-play-toggle"))}
           onBlur={(e) => {
             if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setFocused(false);
           }}
@@ -371,10 +370,24 @@ export function GalleryCarousel({ items }: { items: CarouselItem[] }) {
                     className="group/seg flex h-11 w-9 items-center justify-center"
                   >
                     <span
-                      className={`block h-[3px] rounded-full transition-all duration-500 ease-[var(--ease-out-soft)] ${
-                        i === active ? "w-8 bg-clay" : "w-5 bg-forest/25 group-hover/seg:bg-forest/50"
+                      className={`relative block h-[3px] overflow-hidden rounded-full transition-all duration-500 ease-[var(--ease-out-soft)] ${
+                        i === active ? "w-8 bg-clay/30" : "w-5 bg-forest/25 group-hover/seg:bg-forest/50"
                       }`}
-                    />
+                    >
+                      {i === active && (
+                        // Fills up while the gallery is playing (time until the next picture); full when paused.
+                        <span
+                          key={`${active}-${canAutoplay && !userPaused}`}
+                          className="absolute inset-0 origin-left bg-clay"
+                          onAnimationEnd={() => move(1)}
+                          style={
+                            canAutoplay && !userPaused
+                              ? { animation: `fill-x ${AUTO_MS}ms linear both`, animationPlayState: playing ? "running" : "paused" }
+                              : undefined
+                          }
+                        />
+                      )}
+                    </span>
                   </button>
                 ))}
               </div>
@@ -390,6 +403,7 @@ export function GalleryCarousel({ items }: { items: CarouselItem[] }) {
                 {canAutoplay && (
                   <button
                     type="button"
+                    data-play-toggle
                     onClick={() => setUserPaused((v) => !v)}
                     aria-label={userPaused ? "Play the gallery" : "Pause the gallery"}
                     className="inline-flex h-12 items-center gap-2 rounded-full px-4 text-sm font-semibold text-forest shadow-[inset_0_0_0_1.5px_rgb(31_59_45/0.35)] transition-colors hover:bg-forest hover:text-paper"

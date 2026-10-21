@@ -346,6 +346,14 @@
     transform: rotateY(-9deg);
   }
 }
+@keyframes fill-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
 @keyframes wipe-in {
   from {
     clip-path: inset(0 100% 0 0);
