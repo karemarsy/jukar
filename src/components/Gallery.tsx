@@ -68,9 +68,14 @@ export function Gallery({ number = "04" }: { number?: string }) {
           />
           <circle cx="1182" cy="56" r="7" fill="var(--color-sun)" />
         </svg>
-        <p className="hand absolute -top-6 right-[8%] -rotate-3 text-[1.9rem] text-clay-ink sm:-top-5 sm:text-[2.2rem]">
+        <p className="hand reveal absolute -top-8 right-[6%] left-[6%] -rotate-2 text-right text-[1.6rem] leading-tight text-clay-ink sm:-top-6 sm:left-auto sm:text-[2.1rem]">
           {gallerySection.journeyNote}
         </p>
+        {/* A small paper airplane, heading out along the path */}
+        <svg viewBox="0 0 64 48" className="scroll-drift absolute -top-16 left-[14%] hidden w-14 text-forest sm:block">
+          <path d="M2 22 62 2 40 46 30 30z" fill="var(--color-white)" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+          <path d="M30 30 62 2M30 30l-4 12 10-7" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+        </svg>
       </div>
 
       {/* Closing transition: paper fades into the next section */}
@@ -85,10 +90,15 @@ export function Gallery({ number = "04" }: { number?: string }) {
           </h3>
           <div className="lg:col-span-5">
             <p className="type-lede max-w-md text-ink-soft">{gallerySection.closingBody}</p>
-            <a href="#support" className="btn btn-primary mt-7 text-[1.05rem]">
-              {hero.primaryCta}
-              <Icon name="arrow" className="btn-arrow h-5 w-5" />
-            </a>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <a href="#support" className="btn btn-primary text-[1.05rem]">
+                {hero.primaryCta}
+                <Icon name="arrow" className="btn-arrow h-5 w-5" />
+              </a>
+              <a href="#mission" className="btn btn-ghost text-[1.05rem]">
+                {gallerySection.closingSecondary}
+              </a>
+            </div>
           </div>
         </div>
       </div>

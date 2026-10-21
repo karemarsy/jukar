@@ -142,16 +142,17 @@ export const gallerySection = {
   label: "From our activities",
   /** Split into two lines; the second is set in italics. */
   title: { first: "Little moments.", second: "Limitless possibilities." },
-  intro:
-    "From the first steps toward school to the quiet determination of studying at home, every moment is part of a bigger journey.",
+  intro: "Every school day holds a story. Every small opportunity opens a door to something bigger.",
   /** Used instead of `label` while the gallery shows only AI-generated illustrations. */
   illustrativeLabel: "Stories",
   /** Added under the intro while every picture is an AI illustration. */
   illustrativeNote: "These pictures are illustrations of the moments Jukar works for.",
-  /** Handwritten along the dashed path under the gallery. */
-  journeyNote: "Every step matters.",
+  /** Handwritten along the dotted path under the gallery. */
+  journeyNote: "Same dream. Different days. Brighter futures.",
   closingTitle: "Every image holds a possibility.",
-  closingBody: "Help make education and the support to keep learning possible for children who need it.",
+  closingBody:
+    "Behind every school day is a child with hopes, questions, and a future worth investing in. Your support can help make learning possible.",
+  closingSecondary: "Discover our mission",
 } as const;
 
 export const story = {

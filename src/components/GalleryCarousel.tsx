@@ -60,6 +60,9 @@ export function GalleryCarousel({ items }: { items: CarouselItem[] }) {
   const [userPaused, setUserPaused] = useState(false);
   const [viewer, setViewer] = useState<number | null>(null);
   const [announce, setAnnounce] = useState("");
+  // One-time entrance: "static" until hydrated (so the server HTML is never hidden),
+  // "waiting" while off-screen, "entering" for the staggered arrival, then "done".
+  const [phase, setPhase] = useState<"static" | "waiting" | "entering" | "done">("static");
 
   const regionRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -83,11 +86,30 @@ export function GalleryCarousel({ items }: { items: CarouselItem[] }) {
     if (!stage || !region || !dialog) return;
     const ro = new ResizeObserver(([entry]) => entry && setWidth(entry.contentRect.width));
     ro.observe(stage);
-    const io = new IntersectionObserver(([entry]) => entry && setInView(entry.isIntersecting), { threshold: 0.35 });
+    // The observer reports once immediately on load, then on every change. That first report
+    // arms the one-time entrance if the gallery starts off-screen (and motion is welcome);
+    // the next time it comes into view, the cards arrive and the entrance is spent.
+    const prefersStill = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry) return;
+        setInView(entry.isIntersecting);
+        setPhase((p) => {
+          if (p === "static" && !entry.isIntersecting && !prefersStill && entry.boundingClientRect.top > 0) return "waiting";
+          if (p === "waiting" && entry.isIntersecting) {
+            setTimeout(() => setPhase("done"), 1300);
+            return "entering";
+          }
+          return p === "static" ? "done" : p;
+        });
+      },
+      { threshold: 0.35 },
+    );
     io.observe(region);
     const onVisibility = () => setPageVisible(!document.hidden);
     document.addEventListener("visibilitychange", onVisibility);
     const onClose = () => {
+      document.documentElement.style.removeProperty("overflow");
       const v = viewerRef.current;
       viewerRef.current = null;
       setViewer(null);
@@ -106,16 +128,23 @@ export function GalleryCarousel({ items }: { items: CarouselItem[] }) {
     };
   }, []);
 
+
   const small = width < 640;
   const canAutoplay = !reduce && !small && n > 1;
-  const playing = canAutoplay && !userPaused && !hovered && !focused && inView && pageVisible && viewer === null;
+  const playing =
+    canAutoplay && !userPaused && !hovered && !focused && inView && pageVisible && viewer === null && phase !== "waiting";
 
   // Autoplay is driven by the active progress bar: when it has filled up, the next picture
-  // comes into focus. Pausing freezes the bar, so playing resumes exactly where it stopped,
-  // and any manual move starts a fresh bar.
+  // comes into focus. Pausing freezes the bar, so playing resumes exactly where it stopped.
+  // Any manual move takes over: autoplay stops until the visitor presses Play again.
+
+  const takeControl = () => {
+    clearInterval(stepTimer.current);
+    if (canAutoplay) setUserPaused(true);
+  };
 
   const step = (dir: 1 | -1) => {
-    clearInterval(stepTimer.current);
+    takeControl();
     move(dir);
     setAnnounce(describe(mod(active + dir, n)));
   };
@@ -124,7 +153,7 @@ export function GalleryCarousel({ items }: { items: CarouselItem[] }) {
   const goTo = (target: number) => {
     const d = offsetOf(target, active, n);
     if (d === 0) return;
-    clearInterval(stepTimer.current);
+    takeControl();
     setAnnounce(describe(target));
     if (reduce) {
       setPos({ active: target, prev: target });
@@ -146,6 +175,8 @@ export function GalleryCarousel({ items }: { items: CarouselItem[] }) {
   const openViewer = (i: number) => {
     viewerRef.current = i;
     setViewer(i);
+    // Keep the page behind the larger view still; restored in the dialog's close handler.
+    document.documentElement.style.setProperty("overflow", "hidden");
     dialogRef.current?.showModal();
   };
   const closeViewer = () => dialogRef.current?.close();
@@ -220,7 +251,19 @@ export function GalleryCarousel({ items }: { items: CarouselItem[] }) {
             ref={stageRef}
             className="relative mt-14 h-[25rem] touch-pan-y overflow-x-clip select-none sm:h-[25.5rem] lg:mt-20 lg:h-[30.5rem]"
             onPointerEnter={(e) => e.pointerType === "mouse" && setHovered(true)}
-            onPointerLeave={(e) => e.pointerType === "mouse" && setHovered(false)}
+            onPointerLeave={(e) => {
+              if (e.pointerType !== "mouse") return;
+              setHovered(false);
+              e.currentTarget.style.setProperty("--px", "0");
+              e.currentTarget.style.setProperty("--py", "0");
+            }}
+            // Subtle parallax: CSS variables only (no React re-render on every mouse move).
+            onPointerMove={(e) => {
+              if (e.pointerType !== "mouse" || reduce || width < 1024) return;
+              const r = e.currentTarget.getBoundingClientRect();
+              e.currentTarget.style.setProperty("--px", (((e.clientX - r.left) / r.width) * 2 - 1).toFixed(3));
+              e.currentTarget.style.setProperty("--py", (((e.clientY - r.top) / r.height) * 2 - 1).toFixed(3));
+            }}
             onPointerDown={(e) => {
               dragStart.current = e.clientX;
               dragged.current = false;
@@ -246,6 +289,11 @@ export function GalleryCarousel({ items }: { items: CarouselItem[] }) {
               const rotY = reduce || small ? 0 : -o * 9;
               // A card that wraps from one end of the loop to the other moves instantly (it is hidden).
               const wrapped = Math.abs(o - offsetOf(i, prev, n)) > 1;
+              // Entrance: featured card first, then neighbours outward in a short stagger.
+              const waiting = phase === "waiting";
+              const enterDelay = phase === "entering" ? abs * 130 : 0;
+              // Farther cards drift a little more with the pointer: a sense of depth.
+              const depth = 8 + abs * 9;
               return (
                 <div
                   key={item.src}
@@ -258,18 +306,22 @@ export function GalleryCarousel({ items }: { items: CarouselItem[] }) {
                     width: w,
                     height: h,
                     zIndex: 20 - abs,
-                    opacity: shown ? 1 : 0,
+                    opacity: shown && !waiting ? 1 : 0,
                     pointerEvents: shown ? "auto" : "none",
-                    transform: `translate(-50%, -50%) translateX(${xAt[o] ?? 0}px) perspective(1400px) rotateY(${rotY}deg) rotate(${rotZ}deg) scale(${scale})`,
+                    transform: `translate(-50%, -50%) translateX(${xAt[o] ?? 0}px) translateY(${waiting ? 48 : 0}px) perspective(1400px) rotateY(${rotY}deg) rotate(${rotZ}deg) scale(${waiting ? scale * 0.92 : scale})`,
                     transition: reduce
                       ? "opacity 200ms ease"
                       : wrapped
                         ? "none"
-                        : "transform 900ms cubic-bezier(0.22,1,0.36,1), opacity 700ms cubic-bezier(0.22,1,0.36,1)",
+                        : `transform 900ms cubic-bezier(0.22,1,0.36,1) ${enterDelay}ms, opacity 700ms cubic-bezier(0.22,1,0.36,1) ${enterDelay}ms`,
                   }}
                 >
-                  {/* The wrapper lifts on hover; the labels sit over the button (not inside it),
-                      so the button's visible text is just its title and matches its name. */}
+                  {/* Parallax layer (pointer), then the hover layer. The labels sit over the button
+                      (not inside it), so the button's visible text is just its title and matches its name. */}
+                  <div
+                    className="h-full w-full transition-transform duration-500 ease-out"
+                    style={{ transform: `translate3d(calc(var(--px, 0) * ${depth}px), calc(var(--py, 0) * ${depth * 0.5}px), 0)` }}
+                  >
                   <div className="group relative h-full w-full transition-transform duration-300 ease-[var(--ease-out-soft)] hover:-translate-y-1.5 motion-reduce:transition-none">
                     <button
                       ref={(el) => {
@@ -320,9 +372,10 @@ export function GalleryCarousel({ items }: { items: CarouselItem[] }) {
                         }`}
                       >
                         <Icon name="expand" className="h-3.5 w-3.5" />
-                        View larger
+                        Explore this moment
                       </span>
                     </span>
+                  </div>
                   </div>
                 </div>
               );
@@ -330,7 +383,16 @@ export function GalleryCarousel({ items }: { items: CarouselItem[] }) {
           </div>
 
           {/* Caption, editorial counter and controls */}
-          <div className="shell mt-10 grid items-end gap-8 lg:mt-14 lg:grid-cols-12">
+          <div
+            className="shell mt-10 grid items-end gap-8 transition-[opacity,transform] duration-700 ease-[var(--ease-out-soft)] lg:mt-14 lg:grid-cols-12"
+            style={
+              phase === "waiting"
+                ? { opacity: 0, transform: "translateY(16px)" }
+                : phase === "entering"
+                  ? { transitionDelay: "450ms" }
+                  : undefined
+            }
+          >
             <div className="min-h-[9.5rem] lg:col-span-7">
               <p className="display text-[clamp(2.8rem,6vw,4.6rem)] leading-none text-clay italic" aria-hidden="true">
                 {pad(active + 1)}
@@ -453,7 +515,7 @@ export function GalleryCarousel({ items }: { items: CarouselItem[] }) {
             swipeStart.current = null;
             if (Math.abs(dx) > 60) viewerStep(dx < 0 ? 1 : -1);
           }}
-          className="on-dark m-0 h-dvh max-h-none w-full max-w-none bg-ink/95 p-0 text-paper backdrop:bg-ink/70 open:flex open:flex-col"
+          className="lightbox on-dark m-0 h-dvh max-h-none w-full max-w-none bg-ink/95 p-0 text-paper backdrop:bg-ink/70 open:flex open:flex-col"
         >
           {viewed && viewer !== null && (
             <>
