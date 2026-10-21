@@ -3,13 +3,15 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { hero, organization } from "@/content/site";
 import { getNavigation } from "@/lib/site";
+import { Icon, Logo } from "./ui";
 
 const navigation = getNavigation();
-import { Icon, Logo } from "./ui";
+const tracked = [...navigation.map((n) => n.href), "#support"];
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState<string | null>(null);
   const headerRef = useRef<HTMLElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -19,6 +21,21 @@ export function Header() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Highlight the section currently being read.
+  useEffect(() => {
+    const sections = tracked
+      .map((href) => document.querySelector<HTMLElement>(href))
+      .filter((el): el is HTMLElement => el !== null);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) if (entry.isIntersecting) setActive(`#${entry.target.id}`);
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
   }, []);
 
   const close = useCallback((restoreFocus: boolean) => {
@@ -69,34 +86,46 @@ export function Header() {
   }, [open, close]);
 
   return (
-    <header ref={headerRef} className="sticky top-0 z-50">
+    <header ref={headerRef} className="enter-fade sticky top-0 z-50">
       {/* The blur lives on its own layer: backdrop-filter on <header> itself would
           become the containing block for the fixed mobile menu and collapse it. */}
       <div
         aria-hidden="true"
-        className={`absolute inset-0 transition-[background-color,box-shadow,opacity] duration-300 ${
+        className={`absolute inset-0 transition-[opacity,box-shadow] duration-300 ${
           scrolled || open
-            ? "bg-paper/90 opacity-100 shadow-[0_1px_0_rgb(28_30_26/0.1)] backdrop-blur-md supports-[backdrop-filter]:bg-paper/80"
+            ? "bg-ivory/85 opacity-100 shadow-[0_1px_0_rgb(20_43_74/0.08)] backdrop-blur-md"
             : "opacity-0"
         }`}
       />
-      <div className="shell relative flex h-[4.5rem] items-center justify-between gap-6">
-        <a href="#top" className="-m-1 rounded-sm p-1" aria-label="Jukar — back to top">
+      <div className="shell relative flex h-[4.25rem] items-center justify-between gap-6">
+        <a href="#top" className="-m-1 rounded-md p-1" aria-label="Jukar — back to top">
           <Logo />
         </a>
 
         <nav aria-label="Main" className="hidden lg:block">
           <ul className="flex items-center gap-1">
-            {navigation.map((item) => (
-              <li key={item.href}>
-                <a
-                  href={item.href}
-                  className="relative rounded-full px-4 py-2 text-[0.95rem] font-medium text-ink-soft transition-colors hover:text-forest"
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
+            {navigation.map((item) => {
+              const isActive = active === item.href;
+              return (
+                <li key={item.href}>
+                  <a
+                    href={item.href}
+                    aria-current={isActive ? "true" : undefined}
+                    className={`group relative block rounded-full px-4 py-2 text-[0.95rem] font-medium transition-colors duration-200 ${
+                      isActive ? "text-navy" : "text-muted hover:text-navy"
+                    }`}
+                  >
+                    {item.label}
+                    <span
+                      aria-hidden="true"
+                      className={`absolute inset-x-4 -bottom-0.5 h-[2px] origin-left rounded-full bg-blue transition-transform duration-300 ease-[var(--ease-out-soft)] ${
+                        isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-50"
+                      }`}
+                    />
+                  </a>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
@@ -107,7 +136,7 @@ export function Header() {
           <button
             ref={toggleRef}
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full text-forest transition-colors hover:bg-forest/10 lg:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full text-navy transition-colors hover:bg-navy/8 lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -118,24 +147,23 @@ export function Header() {
         </div>
       </div>
 
+      {/* Always in the page (so aria-controls resolves); invisible and unreachable when closed. */}
       <div
         id="mobile-menu"
         ref={panelRef}
         data-menu-focus
-        hidden={!open}
-        className="fixed inset-x-0 top-[4.5rem] bottom-0 overflow-y-auto bg-paper lg:hidden"
+        inert={!open}
+        className={`fixed inset-x-0 top-[4.25rem] bottom-0 overflow-y-auto bg-ivory transition-[opacity,transform,visibility] duration-300 ease-[var(--ease-out-soft)] motion-reduce:transition-none lg:hidden ${
+          open ? "visible translate-y-0 opacity-100" : "invisible -translate-y-3 opacity-0"
+        }`}
       >
         <nav aria-label="Main" className="shell flex min-h-full flex-col pt-6 pb-10">
-          <ol className="divide-y divide-ink/10 border-y border-ink/10">
+          <ol className="divide-y divide-navy/10 border-y border-navy/10">
             {navigation.map((item, i) => (
               <li key={item.href}>
-                <a
-                  href={item.href}
-                  onClick={() => close(false)}
-                  className="flex items-baseline gap-4 py-5 text-forest"
-                >
-                  <span className="font-display text-sm italic text-clay-ink">0{i + 1}</span>
-                  <span className="display text-[2rem]">{item.label}</span>
+                <a href={item.href} onClick={() => close(false)} className="flex items-baseline gap-4 py-5 text-navy">
+                  <span className="font-display text-lg text-blue-deep italic">0{i + 1}</span>
+                  <span className="display text-[2.4rem]">{item.label}</span>
                 </a>
               </li>
             ))}
@@ -144,7 +172,7 @@ export function Header() {
             {hero.primaryCta}
             <Icon name="arrow" className="btn-arrow h-5 w-5" />
           </a>
-          <p className="hand mt-auto pt-10 text-center text-2xl text-forest/70">{organization.tagline}</p>
+          <p className="hand mt-auto pt-10 text-center text-2xl text-navy/70">{organization.tagline}</p>
         </nav>
       </div>
     </header>

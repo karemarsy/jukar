@@ -6,12 +6,17 @@ export const hasGallery = gallery.some((item) => item.published);
 
 /** Main navigation, without links to sections that are hidden. */
 export function getNavigation() {
-  return navigation.filter((item) => item.href !== "#field-notes" || hasGallery);
+  return navigation.filter((item) => item.href !== "#stories" || hasGallery);
 }
 
-/** The confirmed public URL, or null. Never guessed. */
+/**
+ * The public URL, or null. Never guessed: it comes from NEXT_PUBLIC_SITE_URL
+ * (set this for a custom domain), or else from the production domain Vercel
+ * provides at build time (VERCEL_PROJECT_PRODUCTION_URL).
+ */
 export function getSiteUrl(): URL | null {
-  const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  const vercelHost = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim();
+  const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim() || (vercelHost ? `https://${vercelHost}` : "");
   if (!raw) return null;
   try {
     const url = new URL(raw);

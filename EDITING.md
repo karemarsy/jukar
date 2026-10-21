@@ -27,13 +27,14 @@ Only change the words **between the quotation marks** `"like this"`.
 | Big headline and intro at the top | `hero` |
 | "Our mission" and "Who we support" | `mission` |
 | "What we do" (Going to school / Care and love) | `activities` |
+| Big closing message near the bottom | `closing` |
+| The three Mobile Money steps | `support` → `steps` |
 | "Why it matters" | `whyItMatters` |
 | Gallery heading | `gallerySection` |
 | "Our story" | `story` — put your own words in `familyWords` |
 | "Support Jukar" | `support` |
-| "Ways to help" | `involvement` |
 | Phone and email | `contact` |
-| Slogan in the footer | `tagline` |
+| Slogan (handwritten in the book at the top, and in the footer) | `tagline` |
 
 **Rules that keep the website working:**
 
@@ -58,17 +59,21 @@ Only change the words between the two `"`.
 Near the top of the file is a list of the website's colours:
 
 ```
---color-paper: #f6f0e4;      ← page background (ivory)
---color-forest: #1f3b2d;     ← main dark green (buttons, headings)
---color-sun: #f2b33d;        ← yellow highlight
---color-clay: #b4502d;       ← terracotta accents
---color-ink: #1c1e1a;        ← main text colour
+--color-ivory: #f7f4ed;      ← page background
+--color-navy: #142b4a;       ← headlines, main text, dark sections
+--color-blue: #4268f5;       ← buttons and accents
+--color-blue-deep: #2c4fd8;  ← blue text (labels, links)
+--color-sage: #dcebe0;       ← soft green backgrounds
+--color-sun: #f3c969;        ← yellow highlights and the closing section
+--color-muted: #565f72;      ← grey secondary text
 ```
 
-Replace a colour code (like `#1f3b2d`) with a new one. You can pick colours and get their codes at
+Replace a colour code (like `#142b4a`) with a new one. You can pick colours and get their codes at
 **https://htmlcolorcodes.com**. Keep the `#` and the `;` at the end.
 
-Tip: keep text dark on light backgrounds so it stays easy to read.
+Tip: keep text dark on light backgrounds so it stays easy to read. Every current colour pair was
+checked for readability (WCAG AA); if you change one, check it at **https://webaim.org/resources/contrastchecker/**
+— normal text needs a ratio of at least 4.5.
 
 ---
 

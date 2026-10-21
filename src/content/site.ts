@@ -3,7 +3,7 @@
  *  JUKAR — SITE CONTENT
  * ─────────────────────────────────────────────────────────────────────────────
  *  Almost all of the words on the website live in this file, so the family
- *  can update them without touching any components.
+ *  can update them without touching any components. See EDITING.md.
  *
  *  Ground rules (please keep them):
  *  • Only publish facts the family can stand behind. No estimated numbers,
@@ -15,18 +15,25 @@
  *
  *  Related files:
  *  • src/content/payment.ts — Mobile Money / card contribution details
- *  • src/content/images.ts  — photographs for the main sections
- *  • src/content/gallery.ts — activity photographs and captions
+ *  • src/content/images.ts  — pictures for the main sections
+ *  • src/content/gallery.ts — gallery pictures and captions
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
 export const organization = {
   name: "Jukar",
-  /** Short descriptor used in metadata and the footer. Confirmed facts only. */
+  /** Short descriptor used in the footer. Confirmed facts only. */
   descriptor: "A family-led initiative in Rwanda supporting children's education.",
   country: "Rwanda",
-  /** Provisional brand line — replace freely. */
+  /** Brand line — written by hand on the open book in the hero. */
   tagline: "A little help. A lot of love.",
+} as const;
+
+/** Page title and description for search engines and link previews. */
+export const seo = {
+  title: "Jukar — Every Child Deserves a Chance to Learn",
+  description:
+    "Jukar is a family-led initiative in Rwanda helping children facing hardship access education and the support they need to keep learning.",
 } as const;
 
 export const hero = {
@@ -37,12 +44,12 @@ export const hero = {
     "Jukar helps children from families facing hardship, and children who have lost their parents, go to school and keep learning — with practical help for whatever they need, and with a lot of love.",
   primaryCta: "Support Jukar",
   secondaryCta: "Discover our work",
-  annotation: "a place in class, and love",
 } as const;
 
 export const mission = {
   label: "Our mission",
-  statement: "A place in class is the beginning, not the whole story.",
+  /** Split so the middle word can be emphasised. */
+  statement: { before: "A place in class is the", emphasis: "beginning,", after: "not the whole story." },
   paragraphs: [
     "To learn, a child needs more than a seat in a classroom. They need to arrive ready for the school day — and to know that someone believes in them.",
     "Jukar helps children go to school and stay there. Every child's needs are different, so we help each one with whatever stands in their way, and we make sure they know they are cared for.",
@@ -87,6 +94,7 @@ export const activities = {
       "Practical help matters. But a child also needs to feel seen, encouraged and loved.",
       "Jukar is a family, not a programme. We stay close to the children we help, and we want every one of them to know they are not alone.",
     ],
+    note: "you are not alone",
   },
 } as const;
 
@@ -95,6 +103,7 @@ export const whyItMatters = {
   title: "Why it matters.",
   intro:
     "Education opens doors, but life can put obstacles in the way. These are the ideas behind Jukar's work.",
+  /** The last theme is shown large, as the closing thought of the section. */
   themes: [
     {
       title: "Circumstances shouldn't decide a child's future.",
@@ -113,7 +122,7 @@ export const whyItMatters = {
       body: "Knowing that someone cares — and keeps showing up — can change how a child sees their own future.",
     },
   ],
-  /** Shown as a margin note — a promise about how results will be reported. */
+  /** A promise about how results will be reported. */
   honestyNote: "We'll only ever share numbers we can stand behind.",
 } as const;
 
@@ -131,14 +140,11 @@ export const verifiedFigures: ReadonlyArray<{
 
 export const gallerySection = {
   label: "From our activities",
-  title: "Notes from the field.",
+  title: "Moments that matter.",
   intro: "Moments from Jukar's work, shared with the consent of the families involved.",
   /** Used instead of `label`/`intro` while the gallery shows only AI-generated illustrations. */
-  illustrativeLabel: "Moments that matter",
+  illustrativeLabel: "Stories",
   illustrativeIntro: "The everyday moments Jukar works for — shown here as illustrations.",
-  emptyTitle: "Photographs are on their way.",
-  emptyBody:
-    "We're gathering images from Jukar's activities and will only publish them with the permission of the children's families. They will appear here as soon as they are ready.",
 } as const;
 
 export const story = {
@@ -163,30 +169,26 @@ export const support = {
   title: "Help a child keep learning.",
   lede:
     "There's nothing to choose and nothing to sign up for. Every contribution supports Jukar's work as a whole — helping children get to school, and giving them what they need along the way.",
+  /** Three short steps. {name} is replaced with the recipient name from payment.ts. */
+  steps: [
+    "Choose or type an amount, then tap “Dial on this phone”.",
+    "Check that MTN MoMo shows the name {name}.",
+    "Confirm with your MoMo PIN. MTN sends you an SMS when it's done.",
+  ],
+  questions: "Questions before you give? Write or call the family:",
   thanks: "Murakoze",
   thanksTranslation: "Thank you",
   unavailableTitle: "Contribution details are being confirmed.",
   unavailableBody:
     "We'll publish verified payment instructions here as soon as they're ready. We'd rather wait than risk a contribution reaching the wrong place.",
-  unavailableMeanwhile: "In the meantime, sharing Jukar with someone who cares about education helps too.",
 } as const;
 
-export const involvement = {
-  label: "Ways to help",
-  title: "Other ways to stand with Jukar.",
-  share: {
-    title: "Share Jukar",
-    body: "Send this page to a friend, a colleague or a family group. Every new reader is someone who might help.",
-    shareText: "Jukar helps children in Rwanda go to school — with practical help and a lot of love.",
-  },
-  contribute: {
-    title: "Contribute",
-    body: "Support Jukar's work as a whole — every contribution helps a child keep learning.",
-  },
-  contact: {
-    title: "Get in touch",
-    body: "Have a question, or an idea for how you could help? The family would be glad to hear from you.",
-  },
+/** The closing section at the end of the page. */
+export const closing = {
+  title: "Every child deserves a chance to learn.",
+  body: "Help us make that chance possible.",
+  shareText: "Jukar helps children in Rwanda go to school — with practical help and a lot of love.",
+  contactTitle: "Get in touch",
 } as const;
 
 /**
@@ -204,8 +206,8 @@ export const contact = {
 export const socialLinks: ReadonlyArray<{ label: string; href: string }> = [];
 
 export const navigation = [
-  { href: "#mission", label: "Our mission" },
-  { href: "#activities", label: "Our activities" },
-  { href: "#field-notes", label: "Gallery" },
+  { href: "#mission", label: "Mission" },
+  { href: "#activities", label: "Our work" },
+  { href: "#stories", label: "Stories" },
   { href: "#story", label: "Our story" },
 ] as const;

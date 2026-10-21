@@ -46,6 +46,11 @@ export type MobileMoneyConfig = {
    * Leave empty to use the default sequence built from the fields above.
    */
   steps: ReadonlyArray<string>;
+  /**
+   * Optional quick-pick amounts shown as buttons above the amount box.
+   * Visitors can still type any amount. Leave empty to hide the buttons.
+   */
+  suggestedAmounts?: ReadonlyArray<number>;
 };
 
 export type CardPaymentConfig = {
@@ -70,6 +75,7 @@ export const mobileMoney: MobileMoneyConfig = {
   recipientName: "Karema Arsene Johani",
   reference: "",
   steps: [],
+  suggestedAmounts: [1000, 2000, 5000, 10000],
 };
 
 export const cardPayment: CardPaymentConfig = {

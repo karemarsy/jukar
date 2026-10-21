@@ -2,52 +2,43 @@ import type { ReactNode, SVGProps } from "react";
 
 /* ── Brand ─────────────────────────────────────────────────── */
 
-/** Jukar mark: a sun rising from an open book. */
+/** Jukar mark: a sun rising from an open book — the chance to learn. */
 export function LogoMark({ className, ...props }: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false" className={className} {...props}>
-      <circle cx="20" cy="18" r="7.5" fill="var(--color-sun)" />
+      <circle cx="20" cy="17.5" r="7.5" fill="var(--color-sun)" />
       <path d="M3.5 21.5c6-2.6 11.4-2 16.5 1.6V35c-5-3.2-10.4-3.8-16.5-1.4z" fill="currentColor" />
       <path d="M36.5 21.5c-6-2.6-11.4-2-16.5 1.6V35c5-3.2 10.4-3.8 16.5-1.4z" fill="currentColor" />
     </svg>
   );
 }
 
-export function Logo({ className = "", tone = "ink" }: { className?: string; tone?: "ink" | "paper" }) {
+export function Logo({ className = "", tone = "navy" }: { className?: string; tone?: "navy" | "ivory" }) {
   return (
-    <span
-      className={`inline-flex items-center gap-2 ${tone === "paper" ? "text-paper" : "text-forest"} ${className}`}
-    >
+    <span className={`inline-flex items-center gap-2 ${tone === "ivory" ? "text-ivory" : "text-navy"} ${className}`}>
       <LogoMark className="h-8 w-8 shrink-0" />
-      <span
-        className="font-display text-[1.65rem] font-medium italic leading-none tracking-tight"
-        style={{ fontVariationSettings: '"SOFT" 100, "WONK" 1' }}
-      >
-        jukar
-      </span>
+      <span className="font-display text-[1.9rem] leading-none tracking-tight italic">jukar</span>
     </span>
   );
 }
 
-/* ── Section label: “№ 01 — Our mission” ──────────────────── */
+/* ── Section label: “01 — Our mission” ────────────────────── */
 
 export function SectionLabel({
   number,
   children,
-  tone = "ink",
+  tone = "navy",
   className = "",
 }: {
-  number: string;
+  number?: string;
   children: ReactNode;
-  tone?: "ink" | "paper";
+  tone?: "navy" | "ivory";
   className?: string;
 }) {
   return (
-    <p
-      className={`label flex items-center gap-3 ${tone === "paper" ? "text-sun-soft" : "text-clay-ink"} ${className}`}
-    >
-      <span className="font-display text-base font-normal italic normal-case tracking-normal">№ {number}</span>
-      <span aria-hidden="true" className="h-px w-8 bg-current opacity-60" />
+    <p className={`label flex items-center gap-3 ${tone === "ivory" ? "text-sun" : "text-blue-deep"} ${className}`}>
+      {number && <span className="font-display text-lg font-normal tracking-normal normal-case italic">{number}</span>}
+      <span aria-hidden="true" className="h-px w-8 bg-current opacity-50" />
       <span>{children}</span>
     </p>
   );
@@ -59,20 +50,57 @@ export function SectionLabel({
  * Visible label for AI-generated images. The image's alt text already says
  * so for screen readers, so this copy is hidden from them to avoid repetition.
  */
-export function AiBadge({ className = "" }: { className?: string }) {
+export function AiBadge({ className = "", compact = false }: { className?: string; compact?: boolean }) {
   return (
     <span
       aria-hidden="true"
-      className={`pointer-events-none absolute rounded-full bg-ink/70 px-2.5 py-1 font-sans text-[0.7rem] font-medium tracking-wide text-paper backdrop-blur-sm ${className}`}
+      className={`pointer-events-none absolute rounded-full bg-navy/75 font-sans font-medium tracking-wide whitespace-nowrap text-ivory backdrop-blur-sm ${
+        compact ? "px-2 py-0.5 text-[0.62rem]" : "px-2.5 py-1 text-[0.7rem]"
+      } ${className}`}
     >
-      AI-generated illustration
+      {compact ? "AI illustration" : "AI-generated illustration"}
     </span>
+  );
+}
+
+/* ── Page-edge divider ─────────────────────────────────────── */
+
+/**
+ * A soft, page-like edge where one colour band meets the next.
+ * `fill` is the colour of the band it leads into.
+ */
+export function PageEdge({ fill, flip = false, className = "" }: { fill: string; flip?: boolean; className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 1440 40"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+      focusable="false"
+      className={`page-edge ${flip ? "rotate-180" : ""} ${className}`}
+    >
+      <path d="M0 40V22C180 6 330 30 520 18S860 0 1040 14s300 18 400 6v20z" style={{ fill }} />
+    </svg>
   );
 }
 
 /* ── Icons (inline, stroke-based) ─────────────────────────── */
 
-type IconName = "arrow" | "arrow-down" | "copy" | "check" | "share" | "phone" | "mail" | "chat" | "menu" | "close" | "alert" | "external";
+type IconName =
+  | "arrow"
+  | "arrow-down"
+  | "copy"
+  | "check"
+  | "share"
+  | "phone"
+  | "mail"
+  | "chat"
+  | "menu"
+  | "close"
+  | "alert"
+  | "external"
+  | "chevron-left"
+  | "chevron-right"
+  | "expand";
 
 const paths: Record<IconName, ReactNode> = {
   arrow: <path d="M5 12h13M13 6l6 6-6 6" />,
@@ -107,6 +135,9 @@ const paths: Record<IconName, ReactNode> = {
     </>
   ),
   external: <path d="M14 4.5h5.5V10M19.5 4.5 11 13M17.5 14v4a1.5 1.5 0 0 1-1.5 1.5H6A1.5 1.5 0 0 1 4.5 18V8A1.5 1.5 0 0 1 6 6.5h4" />,
+  "chevron-left": <path d="M14.5 5.5 8 12l6.5 6.5" />,
+  "chevron-right": <path d="M9.5 5.5 16 12l-6.5 6.5" />,
+  expand: <path d="M14 4.5h5.5V10M10 19.5H4.5V14M19.5 4.5 13.5 10.5M4.5 19.5l6-6" />,
 };
 
 export function Icon({ name, className = "h-5 w-5" }: { name: IconName; className?: string }) {

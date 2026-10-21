@@ -9,9 +9,9 @@ const C = {
   paper: "#f6f0e4",
   sheet: "#fcfaf5",
   ink: "#1c1e1a",
-  forest: "#1f3b2d",
-  forestDeep: "#15291f",
-  forestSoft: "#2c4d3b",
+  forest: "#142b4a",
+  forestDeep: "#0d1d33",
+  forestSoft: "#2c4f7a",
   sun: "#f2b33d",
   sunSoft: "#f8d589",
   sunDark: "#d9951f",
@@ -211,98 +211,6 @@ export function ClassroomScene({ className }: { className?: string }) {
   );
 }
 
-/* ── Materials: small sketches for each supply ────────────── */
-
-export type SupplyKind = "exercise-books" | "notebook" | "pencils" | "pens" | "bag" | "other";
-
-export function supplyKindFor(label: string): SupplyKind {
-  const l = label.toLowerCase();
-  if (l.includes("exercise")) return "exercise-books";
-  if (l.includes("notebook")) return "notebook";
-  if (l.includes("pencil")) return "pencils";
-  if (l.includes("pen")) return "pens";
-  if (l.includes("bag")) return "bag";
-  return "other";
-}
-
-export function SupplySketch({ kind, className }: { kind: SupplyKind; className?: string }) {
-  return (
-    <svg viewBox="0 0 200 140" className={className} aria-hidden="true" focusable="false">
-      {kind === "exercise-books" && (
-        <g transform="translate(30 30) rotate(-4)">
-          <BookStack width={140} />
-        </g>
-      )}
-      {kind === "notebook" && (
-        <g transform="translate(52 12) rotate(5 48 58)">
-          <rect x="5" y="8" width="96" height="116" rx="5" fill="#000" opacity=".12" />
-          <rect width="96" height="116" rx="5" fill={C.forest} />
-          <rect x="14" y="6" width="78" height="104" rx="3" fill={C.sheet} />
-          {[28, 42, 56, 70, 84, 98].map((y) => (
-            <path key={y} d={`M24 ${y}h60`} stroke={C.ruled} strokeWidth="1.5" />
-          ))}
-          {[14, 30, 46, 62, 78, 94].map((y) => (
-            <path key={y} d={`M2 ${y}h18`} stroke={C.metal} strokeWidth="4" strokeLinecap="round" />
-          ))}
-          <path d="M30 40c10-4 30-4 44 0" stroke={C.clay} strokeWidth="2" fill="none" strokeLinecap="round" />
-        </g>
-      )}
-      {kind === "pencils" && (
-        <g>
-          <g transform="translate(26 92) rotate(-22) scale(.5)">
-            <Pencil length={230} />
-          </g>
-          <g transform="translate(34 72) rotate(-8) scale(.5)">
-            <Pencil length={210} body={C.clay} stripe="#93401f" />
-          </g>
-          <g transform="translate(46 50) rotate(6) scale(.5)">
-            <Pencil length={190} body={C.forestSoft} stripe={C.forest} />
-          </g>
-        </g>
-      )}
-      {kind === "pens" && (
-        <g>
-          <g transform="translate(30 50) rotate(14) scale(.62)">
-            <Pen length={190} />
-          </g>
-          <g transform="translate(36 92) rotate(-10) scale(.62)">
-            <Pen length={190} body="#2f5f8a" cap="#1f425f" />
-          </g>
-        </g>
-      )}
-      {kind === "bag" && (
-        <g transform="translate(58 8)">
-          <path d="M24 26c0-26 36-26 36 0" stroke={C.ink} strokeWidth="6" fill="none" strokeLinecap="round" />
-          <rect x="6" y="122" width="84" height="6" rx="3" fill="#000" opacity=".12" />
-          <rect x="0" y="22" width="84" height="102" rx="18" fill={C.clay} />
-          <path d="M0 56h84" stroke="#8e3c1f" strokeWidth="3" />
-          <rect x="16" y="70" width="52" height="40" rx="8" fill="#c9653f" />
-          <circle cx="42" cy="56" r="5" fill={C.sun} />
-        </g>
-      )}
-      {kind === "other" && (
-        <g>
-          <g transform="translate(24 30) rotate(-6)">
-            <rect width="150" height="30" rx="3" fill={C.sunSoft} />
-            {Array.from({ length: 14 }, (_, i) => (
-              <path key={i} d={`M${10 + i * 10} 0v${i % 5 === 0 ? 12 : 7}`} stroke={C.woodDark} strokeWidth="1.4" />
-            ))}
-          </g>
-          <g transform="translate(40 84) rotate(8)">
-            <rect width="50" height="28" rx="5" fill={C.eraser} />
-            <rect x="20" width="30" height="28" rx="2" fill="#4a7ea6" />
-          </g>
-          <g transform="translate(118 80)">
-            <rect width="38" height="34" rx="5" fill={C.forestSoft} />
-            <circle cx="19" cy="17" r="8" fill={C.forestDeep} />
-            <rect x="34" y="12" width="10" height="10" rx="2" fill={C.metal} />
-          </g>
-        </g>
-      )}
-    </svg>
-  );
-}
-
 /* ── Hand-drawn marks ─────────────────────────────────────── */
 
 export function ScribbleUnderline({ className }: { className?: string }) {
@@ -334,7 +242,7 @@ export function HandCheck({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 28 28" className={className} aria-hidden="true" focusable="false">
       <rect x="3" y="4" width="21" height="20" rx="2" fill="none" stroke="currentColor" strokeWidth="1.6" opacity=".55" transform="rotate(-3 14 14)" />
-      <path d="M7 14.5l5 5L25 5" fill="none" stroke="var(--color-clay)" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M7 14.5l5 5L25 5" fill="none" stroke="var(--color-blue)" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }

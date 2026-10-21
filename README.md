@@ -87,7 +87,10 @@ src/
     icon.svg, opengraph-image.tsx, robots.ts, sitemap.ts
   components/
     Header.tsx            sticky header + accessible mobile menu (client)
-    Hero, Mission, Activities, WhyItMatters, Gallery, Story, Support, Involvement, Footer
+    Hero, Mission, Activities, WhyItMatters, Gallery, Story, Support, Closing, Footer
+    HeroBook.tsx          CSS-3D open book in the hero (client: pointer tilt)
+    GalleryLightbox.tsx   gallery grid + accessible <dialog> lightbox (client)
+    UssdDialer.tsx        amount picker, dial code and Dial/Copy buttons (client)
     PhotoFrame.tsx        photo slot with illustration fallback
     Illustrations.tsx     original SVG illustrations and hand-drawn marks
     CopyButton.tsx, ShareButton.tsx   clipboard / Web Share (client)
@@ -100,4 +103,6 @@ src/
 
 ## Design notes
 
-“The Field Notebook”: warm paper backgrounds, deep forest-green ink, a sunshine-yellow highlighter and the terracotta margin rule of a school exercise book. Fraunces (display), Instrument Sans (body) and Caveat (hand-written annotations), all self-hosted via `next/font`. Motion is CSS-only, subtle, and disabled under `prefers-reduced-motion`.
+“The Open Book”: warm ivory pages, deep navy ink, an electric-blue pen, sage paper and a yellow highlighter. Instrument Serif (display), Instrument Sans (body) and Caveat (short handwritten notes), all self-hosted via `next/font`. Every text/background colour pair is checked for WCAG AA.
+
+The hero's open book is pure CSS 3D (no WebGL). Motion: CSS for entrances and scroll reveals (content is never hidden if JavaScript fails); [Motion](https://motion.dev) only for the hero's pointer tilt and the gallery lightbox. Everything respects `prefers-reduced-motion`.
