@@ -17,7 +17,7 @@ export type CarouselItem = {
 };
 
 /** Time each picture stays in focus while the gallery plays by itself. */
-const AUTO_MS = 5200;
+const AUTO_MS = 3000;
 /** Delay between single steps when jumping several pictures (keeps cards from flying across). */
 const STEP_MS = 170;
 /** Size of a card at 0, 1, 2 and 3 places from the centre. */
