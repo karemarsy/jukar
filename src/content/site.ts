@@ -31,7 +31,7 @@ export const organization = {
 
 /** Page title and description for search engines and link previews. */
 export const seo = {
-  title: "Jukar — Every Child Deserves a Chance to Learn",
+  title: "Jukar | Every Child Deserves a Chance to Learn",
   description:
     "Jukar is a family-led initiative in Rwanda helping children facing hardship access education and the support they need to keep learning.",
 } as const;
@@ -41,7 +41,7 @@ export const hero = {
   /** The headline is split so one word can carry the hand-drawn underline. */
   headline: { before: "Every child deserves a chance to", emphasis: "learn." },
   lede:
-    "Jukar helps children from families facing hardship, and children who have lost their parents, go to school and keep learning — with practical help for whatever they need, and with a lot of love.",
+    "Jukar helps children from families facing hardship, and children who have lost their parents, go to school and keep learning, with practical help for whatever they need, and with a lot of love.",
   primaryCta: "Support Jukar",
   secondaryCta: "Discover our work",
 } as const;
@@ -51,7 +51,7 @@ export const mission = {
   /** Split so the middle word can be emphasised. */
   statement: { before: "A place in class is the", emphasis: "beginning,", after: "not the whole story." },
   paragraphs: [
-    "To learn, a child needs more than a seat in a classroom. They need to arrive ready for the school day — and to know that someone believes in them.",
+    "To learn, a child needs more than a seat in a classroom. They need to arrive ready for the school day, and to know that someone believes in them.",
     "Jukar helps children go to school and stay there. Every child's needs are different, so we help each one with whatever stands in their way, and we make sure they know they are cared for.",
   ],
   /** Who Jukar supports — confirmed by the family. */
@@ -61,7 +61,7 @@ export const mission = {
       "Children from families facing financial hardship",
       "Children who have lost one or both parents",
     ],
-    body: "Our aim is simple: that these children can sit in the same classrooms and learn alongside every other child — with what they need, and the care they deserve.",
+    body: "Our aim is simple: that these children can sit in the same classrooms and learn alongside every other child, with what they need, and the care they deserve.",
   },
   /** Written on a notebook page beside the mission. */
   needsTitle: "What we want every child to feel",
@@ -80,10 +80,10 @@ export const activities = {
     "There is no fixed list. Every child's situation is different, so we look at what each one needs and help however we can.",
   school: {
     kicker: "Going to school",
-    title: "Helping children get to school — and stay there.",
+    title: "Helping children get to school and stay there.",
     paragraphs: [
       "For a family facing hardship, or a child without parents to rely on, many small things can stand between a child and the classroom.",
-      "Jukar helps with what each child needs to start school, come back next term and keep going — just like their classmates.",
+      "Jukar helps with what each child needs to start school, come back next term and keep going, just like their classmates.",
     ],
     note: "a place in class",
   },
@@ -119,7 +119,7 @@ export const whyItMatters = {
     },
     {
       title: "Love makes the difference.",
-      body: "Knowing that someone cares — and keeps showing up — can change how a child sees their own future.",
+      body: "Knowing that someone cares and keeps showing up can change how a child sees their own future.",
     },
   ],
   /** A promise about how results will be reported. */
@@ -168,7 +168,7 @@ export const story = {
   signature: "",
   provisional: [
     "Jukar is a family-led initiative in Rwanda. It exists to make one thing a little easier: a child's path through school.",
-    "There is no large organisation behind it — just a family committed to helping children learn, and the people who choose to stand with them.",
+    "There is no large organisation behind it, just a family committed to helping children learn, and the people who choose to stand with them.",
   ],
 } as const;
 
@@ -176,7 +176,7 @@ export const support = {
   label: "Support Jukar",
   title: "Help a child keep learning.",
   lede:
-    "There's nothing to choose and nothing to sign up for. Every contribution supports Jukar's work as a whole — helping children get to school, and giving them what they need along the way.",
+    "There's nothing to choose and nothing to sign up for. Every contribution supports Jukar's work as a whole: helping children get to school, and giving them what they need along the way.",
   /** Three short steps. {name} is replaced with the recipient name from payment.ts. */
   steps: [
     "Choose or type an amount, then tap “Dial on this phone”.",
@@ -195,7 +195,7 @@ export const support = {
 export const closing = {
   title: "Every child deserves a chance to learn.",
   body: "Help us make that chance possible.",
-  shareText: "Jukar helps children in Rwanda go to school — with practical help and a lot of love.",
+  shareText: "Jukar helps children in Rwanda go to school, with practical help and a lot of love.",
   contactTitle: "Get in touch",
 } as const;
 

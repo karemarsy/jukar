@@ -92,7 +92,7 @@ export function resolveMobileMoney(config: MobileMoneyConfig): MobileMoneyState 
   const steps = cfg.steps.length > 0 ? cfg.steps : defaultSteps({ ...cfg, displayCode, isTemplate });
 
   const copyText = [
-    `Jukar — ${cfg.provider} (${cfg.paymentType})`,
+    `Jukar: ${cfg.provider} (${cfg.paymentType})`,
     ...details.map((d) => `${d.label}: ${d.value}`),
     ...(isTemplate ? [`(Replace AMOUNT with the amount in ${cfg.currency})`] : []),
   ].join("\n");
@@ -123,7 +123,7 @@ function defaultSteps(cfg: {
 }): string[] {
   if (cfg.isTemplate) {
     return [
-      `Type the amount you'd like to give above and tap “Dial on this phone” — or dial ${cfg.displayCode} yourself, replacing AMOUNT with the amount in ${cfg.currency}.`,
+      `Type the amount you'd like to give above and tap “Dial on this phone”, or dial ${cfg.displayCode} yourself, replacing AMOUNT with the amount in ${cfg.currency}.`,
       `Before confirming, check that the name ${cfg.provider} shows is ${cfg.recipientName}.`,
       ...(cfg.reference ? [`Enter the reference ${cfg.reference} if asked.`] : []),
       `Confirm with your ${cfg.provider} PIN.`,

@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { hero, organization } from "@/content/site";
 
-export const alt = `${organization.name} — ${organization.descriptor}`;
+export const alt = `${organization.name}: ${organization.descriptor}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

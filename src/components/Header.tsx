@@ -98,7 +98,7 @@ export function Header() {
         }`}
       />
       <div className="shell relative flex h-[4.25rem] items-center justify-between gap-6">
-        <a href="#top" className="-m-1 rounded-md p-1" aria-label="Jukar — back to top">
+        <a href="#top" className="-m-1 rounded-md p-1" aria-label="Jukar, back to top">
           <Logo />
         </a>
 

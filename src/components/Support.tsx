@@ -205,7 +205,7 @@ export function Support({ number = "06" }: { number?: string }) {
           {anyAvailable && (
             <p className="mt-6 max-w-xl text-[0.95rem] text-paper/70">
               Jukar is a family-led initiative. Contributions are gifts to its education work. This website never sees or
-              confirms your payment — MTN&apos;s SMS is your confirmation.
+              confirms your payment. MTN&apos;s SMS is your confirmation.
             </p>
           )}
         </div>
@@ -216,7 +216,7 @@ export function Support({ number = "06" }: { number?: string }) {
             <span className="hand text-5xl text-sun" lang="rw">
               {support.thanks}
             </span>
-            <span className="text-paper/70">— {support.thanksTranslation.toLowerCase()}</span>
+            <span className="text-paper/70">({support.thanksTranslation.toLowerCase()})</span>
           </p>
         </div>
       </div>
