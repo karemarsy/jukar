@@ -1,42 +1,96 @@
 import { gallery } from "@/content/gallery";
-import { gallerySection } from "@/content/site";
-import { GalleryLightbox, type LightboxItem } from "./GalleryLightbox";
-import { SectionLabel } from "./ui";
+import { gallerySection, hero } from "@/content/site";
+import { GalleryCarousel, type CarouselItem } from "./GalleryCarousel";
+import { Icon, LogoMark, SectionLabel } from "./ui";
 
-/** Renders nothing until at least one item is published. */
+/** “A journey of hope”. Renders nothing until at least one picture is published. */
 export function Gallery({ number = "04" }: { number?: string }) {
   const published = gallery.filter((item) => item.published);
   if (published.length === 0) return null;
 
-  // While every picture is an AI illustration, don't claim these are real Jukar moments.
+  // While every picture is an AI illustration, say so plainly and don't claim real Jukar moments.
   const illustrative = published.every((item) => item.aiGenerated);
   const label = illustrative ? gallerySection.illustrativeLabel : gallerySection.label;
-  const intro = illustrative ? gallerySection.illustrativeIntro : gallerySection.intro;
 
-  const items: LightboxItem[] = published.map((item) => ({
+  const items: CarouselItem[] = published.map((item) => ({
     src: item.src,
     alt: item.alt,
     width: item.width,
     height: item.height,
+    title: item.title ?? item.caption.replace(/[.,].*$/, ""),
     caption: item.caption,
     meta: [item.date, item.place].filter(Boolean).join(" · ") || undefined,
     aiGenerated: item.aiGenerated,
   }));
 
   return (
-    <section id="stories" aria-labelledby="gallery-title" className="py-24 sm:py-32 lg:py-40">
-      <div className="shell">
-        <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
+    <section id="stories" aria-labelledby="gallery-title" className="relative overflow-x-clip pt-24 sm:pt-32 lg:pt-40">
+      {/* A soft paper shape behind the heading */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-16 -left-48 h-[34rem] w-[34rem] rounded-full bg-paper-deep/80 blur-2xl"
+      />
+
+      <div className="shell relative">
+        <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-8">
             <SectionLabel number={number}>{label}</SectionLabel>
-            <h2 id="gallery-title" className="display type-section reveal mt-8 text-forest">
-              {gallerySection.title}
+            <h2 id="gallery-title" className="display reveal mt-8 text-[clamp(2.9rem,8.2vw,7.2rem)] text-forest">
+              <span className="block">{gallerySection.title.first}</span>
+              <em className="block pl-[6%] text-clay-ink">{gallerySection.title.second}</em>
             </h2>
           </div>
-          <p className="type-lede max-w-md text-ink-soft lg:col-span-4 lg:justify-self-end">{intro}</p>
+          <div className="lg:col-span-4 lg:pb-4">
+            <p className="type-lede max-w-md text-ink-soft">{gallerySection.intro}</p>
+            {illustrative && (
+              <p className="mt-4 flex max-w-md items-start gap-2.5 text-[0.95rem] text-ink-soft">
+                <span aria-hidden="true" className="mt-2 h-2 w-2 shrink-0 rounded-full bg-sun" />
+                {gallerySection.illustrativeNote}
+              </p>
+            )}
+          </div>
         </div>
+      </div>
 
-        <GalleryLightbox items={items} />
+      <GalleryCarousel items={items} />
+
+      {/* Second, quieter motion: a dashed path that draws itself as you scroll */}
+      <div className="shell relative mt-14" aria-hidden="true">
+        <svg viewBox="0 0 1200 90" preserveAspectRatio="none" className="scroll-reveal-x h-14 w-full text-clay sm:h-16">
+          <path
+            d="M10 62C200 12 380 86 600 46s400-26 580 10"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.2"
+            strokeDasharray="2 11"
+            strokeLinecap="round"
+            vectorEffect="non-scaling-stroke"
+          />
+          <circle cx="1182" cy="56" r="7" fill="var(--color-sun)" />
+        </svg>
+        <p className="hand absolute -top-6 right-[8%] -rotate-3 text-[1.9rem] text-clay-ink sm:-top-5 sm:text-[2.2rem]">
+          {gallerySection.journeyNote}
+        </p>
+      </div>
+
+      {/* Closing transition: paper fades into the next section */}
+      <div className="relative mt-14 bg-gradient-to-b from-paper to-paper-deep pt-16 pb-28 sm:pb-36">
+        <LogoMark
+          aria-hidden="true"
+          className="pointer-events-none absolute right-[3%] bottom-8 h-56 w-56 text-forest opacity-[0.06] sm:h-80 sm:w-80"
+        />
+        <div className="shell relative grid gap-8 lg:grid-cols-12 lg:items-end">
+          <h3 className="display reveal text-[clamp(2.4rem,5.6vw,4.8rem)] leading-[1] text-forest lg:col-span-7">
+            {gallerySection.closingTitle}
+          </h3>
+          <div className="lg:col-span-5">
+            <p className="type-lede max-w-md text-ink-soft">{gallerySection.closingBody}</p>
+            <a href="#support" className="btn btn-primary mt-7 text-[1.05rem]">
+              {hero.primaryCta}
+              <Icon name="arrow" className="btn-arrow h-5 w-5" />
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );

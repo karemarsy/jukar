@@ -346,6 +346,14 @@
     transform: rotateY(-9deg);
   }
 }
+@keyframes wipe-in {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
 @keyframes reveal {
   from {
     opacity: 0;
@@ -387,6 +395,12 @@
       animation: reveal linear both;
       animation-timeline: view();
       animation-range: entry 0% entry 60%;
+    }
+    /* Draws a decoration from left to right as it scrolls into view. */
+    .scroll-reveal-x {
+      animation: wipe-in linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 50%;
     }
   }
 }

@@ -89,7 +89,7 @@ src/
     Header.tsx            sticky header + accessible mobile menu (client)
     Hero, Mission, Activities, WhyItMatters, Gallery, Story, Support, Closing, Footer
     HeroBook.tsx          CSS-3D open book in the hero (client: pointer tilt)
-    GalleryLightbox.tsx   gallery grid + accessible <dialog> lightbox (client)
+    GalleryCarousel.tsx   animated gallery carousel + accessible <dialog> larger view (client)
     UssdDialer.tsx        amount picker, dial code and Dial/Copy buttons (client)
     PhotoFrame.tsx        photo slot with illustration fallback
     Illustrations.tsx     original SVG illustrations and hand-drawn marks

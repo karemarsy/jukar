@@ -30,7 +30,8 @@ Only change the words **between the quotation marks** `"like this"`.
 | Big closing message near the bottom | `closing` |
 | The three Mobile Money steps | `support` → `steps` |
 | "Why it matters" | `whyItMatters` |
-| Gallery heading | `gallerySection` |
+| Gallery heading, intro and its closing message | `gallerySection` |
+| Gallery pictures: order, short titles (`title`) and captions | `src/content/gallery.ts` |
 | "Our story" | `story` — put your own words in `familyWords` |
 | "Support Jukar" | `support` |
 | Phone and email | `contact` |
