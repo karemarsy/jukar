@@ -61,23 +61,20 @@ export function UssdDialer({
         {invalid ? "Please enter a whole number, for example 5000." : ""}
       </p>
 
-      <p className="label mt-3 text-ink-soft" id={`${id}-code-label`}>
-        Code to dial
-      </p>
-      <p
-        aria-labelledby={`${id}-code-label`}
-        className="mt-1.5 font-sans text-base font-semibold text-ink tabular-nums min-[360px]:text-lg sm:text-xl"
-      >
-        {filled ? (
-          breakAfterStars(filled)
-        ) : (
-          <>
-            {breakAfterStars(before ?? "")}
-            <span className="whitespace-nowrap text-clay-ink italic">AMOUNT</span>
-            {after}
-          </>
-        )}
-      </p>
+      <dl className="mt-3">
+        <dt className="label text-ink-soft">Code to dial</dt>
+        <dd className="mt-1.5 font-sans text-base font-semibold text-ink tabular-nums min-[360px]:text-lg sm:text-xl">
+          {filled ? (
+            breakAfterStars(filled)
+          ) : (
+            <>
+              {breakAfterStars(before ?? "")}
+              <span className="whitespace-nowrap text-clay-ink italic">AMOUNT</span>
+              {after}
+            </>
+          )}
+        </dd>
+      </dl>
 
       <div className="mt-4 flex flex-col gap-2 sm:flex-row [&_.btn]:px-4 [&_.btn]:whitespace-nowrap min-[360px]:[&_.btn]:px-[1.4rem]">
         {dialHref ? (
