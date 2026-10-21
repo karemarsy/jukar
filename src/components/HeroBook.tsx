@@ -54,7 +54,7 @@ export function HeroBook({ photo, tagline }: { photo: Photo | null; tagline: str
             {/* Cover and page block, slightly behind the pages */}
             <div
               aria-hidden="true"
-              className="absolute -inset-[3%] rounded-[16px] bg-navy shadow-[0_60px_90px_-45px_rgb(20_43_74/0.7)]"
+              className="absolute -inset-[3%] rounded-[16px] bg-forest shadow-[0_60px_90px_-45px_rgb(31_59_45/0.7)]"
               style={{ transform: "translateZ(-8px)" }}
             />
             <div
@@ -70,11 +70,11 @@ export function HeroBook({ photo, tagline }: { photo: Photo | null; tagline: str
             >
               <div className="absolute inset-0 [&::before]:left-[16%]" />
               <div className="relative flex h-full flex-col justify-center pr-[10%] pl-[22%]">
-                <p className="hand text-[6.2cqw] leading-[6.4cqw] text-blue-deep">
+                <p className="hand text-[6.2cqw] leading-[6.4cqw] text-clay-ink">
                   <span className="block">{line1}</span>
                   <span className="block">{line2}</span>
                 </p>
-                <svg viewBox="0 0 120 40" aria-hidden="true" className="mt-[4cqw] w-[44%] text-blue">
+                <svg viewBox="0 0 120 40" aria-hidden="true" className="mt-[4cqw] w-[44%] text-clay">
                   <path
                     className="draw-in"
                     style={{ ["--len" as string]: 160 }}
@@ -90,9 +90,9 @@ export function HeroBook({ photo, tagline }: { photo: Photo | null; tagline: str
 
             {/* Right page — the picture, taped in like a print */}
             <div className="book-page book-page-right book-open-right p-[6%]">
-              <figure className="relative h-full rotate-[1.5deg] bg-white p-[3.5%] pb-[3.5%] shadow-[0_12px_24px_-14px_rgb(20_43_74/0.45)]">
+              <figure className="relative h-full rotate-[1.5deg] bg-white p-[3.5%] pb-[3.5%] shadow-[0_12px_24px_-14px_rgb(31_59_45/0.45)]">
                 <span aria-hidden="true" className="tape -top-[4%] left-[30%] z-10 h-[7%] w-[38%] -rotate-3" />
-                <div className="relative h-full overflow-hidden bg-sage">
+                <div className="relative h-full overflow-hidden bg-paper-deep">
                   {photo && (
                     <>
                       <Image
@@ -115,7 +115,7 @@ export function HeroBook({ photo, tagline }: { photo: Photo | null; tagline: str
             {/* The spine */}
             <div
               aria-hidden="true"
-              className="absolute inset-y-0 left-1/2 w-[3%] -translate-x-1/2 bg-[linear-gradient(90deg,transparent,rgb(20_43_74/0.18),transparent)]"
+              className="absolute inset-y-0 left-1/2 w-[3%] -translate-x-1/2 bg-[linear-gradient(90deg,transparent,rgb(31_59_45/0.18),transparent)]"
             />
           </div>
         </m.div>
@@ -124,14 +124,14 @@ export function HeroBook({ photo, tagline }: { photo: Photo | null; tagline: str
         <svg
           viewBox="0 0 300 26"
           aria-hidden="true"
-          className="absolute -right-[2%] -bottom-[9%] w-[54%] rotate-[-9deg] drop-shadow-[0_10px_8px_rgb(20_43_74/0.25)]"
+          className="absolute -right-[2%] -bottom-[9%] w-[54%] rotate-[-9deg] drop-shadow-[0_10px_8px_rgb(31_59_45/0.25)]"
         >
           <rect x="0" y="2" width="26" height="22" rx="5" fill="#eaa292" />
           <rect x="24" y="2" width="22" height="22" fill="#c9c6bf" />
           <rect x="46" y="2" width="206" height="22" fill="var(--color-sun)" />
           <path d="M46 9.5h206M46 16.5h206" stroke="#d9a63b" strokeWidth="1.5" />
           <path d="M252 2l40 11-40 11z" fill="#efd3a9" />
-          <path d="M279 9.5l13 3.5-13 3.5z" fill="var(--color-navy)" />
+          <path d="M279 9.5l13 3.5-13 3.5z" fill="var(--color-forest)" />
         </svg>
       </div>
     </LazyMotion>

@@ -11,10 +11,10 @@ export function Closing() {
 
   return (
     // Named by its call to action: its heading repeats the hero's, and two regions with the same name confuse screen-reader navigation.
-    <section id="closing" aria-label={closing.body} className="relative overflow-hidden bg-sun text-navy">
+    <section id="closing" aria-label={closing.body} className="relative overflow-hidden bg-sun text-forest">
       <LogoMark
         aria-hidden="true"
-        className="pointer-events-none absolute -right-16 -bottom-24 h-[26rem] w-[26rem] text-navy opacity-[0.07] sm:h-[34rem] sm:w-[34rem]"
+        className="pointer-events-none absolute -right-16 -bottom-24 h-[26rem] w-[26rem] text-forest opacity-[0.07] sm:h-[34rem] sm:w-[34rem]"
       />
       <div className="shell relative py-24 sm:py-32 lg:py-40">
         <h2 id="closing-title" className="display reveal max-w-[14ch] text-[clamp(3rem,10vw,8.8rem)]">
@@ -31,7 +31,7 @@ export function Closing() {
         </div>
 
         {contacts.length > 0 && (
-          <div id="contact" className="mt-16 border-t border-navy/20 pt-8">
+          <div id="contact" className="mt-16 border-t border-forest/20 pt-8">
             <h3 className="label font-sans">{closing.contactTitle}</h3>
             <ul className="mt-4 flex flex-col gap-3 sm:flex-row sm:gap-8">
               {contacts.map((c) => (

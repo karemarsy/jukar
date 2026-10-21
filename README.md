@@ -103,6 +103,6 @@ src/
 
 ## Design notes
 
-“The Open Book”: warm ivory pages, deep navy ink, an electric-blue pen, sage paper and a yellow highlighter. Instrument Serif (display), Instrument Sans (body) and Caveat (short handwritten notes), all self-hosted via `next/font`. Every text/background colour pair is checked for WCAG AA.
+“The Open Book”, in the original Jukar colours: paper-ivory pages, forest-green ink, a sunshine-yellow highlighter and terracotta accents. Instrument Serif (display), Instrument Sans (body) and Caveat (short handwritten notes), all self-hosted via `next/font`. Every text/background colour pair is checked for WCAG AA.
 
 The hero's open book is pure CSS 3D (no WebGL). Motion: CSS for entrances and scroll reveals (content is never hidden if JavaScript fails); [Motion](https://motion.dev) only for the hero's pointer tilt and the gallery lightbox. Everything respects `prefers-reduced-motion`.

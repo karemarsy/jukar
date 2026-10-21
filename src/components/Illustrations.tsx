@@ -9,8 +9,8 @@ const C = {
   paper: "#f6f0e4",
   sheet: "#fcfaf5",
   ink: "#1c1e1a",
-  forest: "#142b4a",
-  forestDeep: "#0d1d33",
+  forest: "#1f3b2d",
+  forestDeep: "#1c1e1a",
   forestSoft: "#2c4f7a",
   sun: "#f2b33d",
   sunSoft: "#f8d589",
@@ -242,7 +242,7 @@ export function HandCheck({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 28 28" className={className} aria-hidden="true" focusable="false">
       <rect x="3" y="4" width="21" height="20" rx="2" fill="none" stroke="currentColor" strokeWidth="1.6" opacity=".55" transform="rotate(-3 14 14)" />
-      <path d="M7 14.5l5 5L25 5" fill="none" stroke="var(--color-blue)" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M7 14.5l5 5L25 5" fill="none" stroke="var(--color-clay)" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }

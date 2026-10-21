@@ -10,19 +10,19 @@ const delay = (ms: number) => ({ "--delay": `${ms}ms` }) as CSSProperties;
 export function Hero() {
   return (
     <section aria-labelledby="hero-title" className="relative overflow-x-clip">
-      {/* A sage “page” behind the book */}
+      {/* A paper-deep “page” behind the book */}
       <div
         aria-hidden="true"
-        className="absolute top-6 right-[-12rem] bottom-16 hidden w-[58%] rounded-l-[4rem] bg-sage lg:block"
+        className="absolute top-6 right-[-12rem] bottom-16 hidden w-[58%] rounded-l-[4rem] bg-paper-deep lg:block"
       />
       <div className="shell relative grid items-center gap-x-10 gap-y-16 pt-8 pb-16 sm:pt-12 lg:grid-cols-12 lg:pt-16 lg:pb-20">
         <div className="lg:col-span-7">
-          <p className="label enter-fade flex items-center gap-2.5 text-blue-deep" style={delay(0)}>
+          <p className="label enter-fade flex items-center gap-2.5 text-clay-ink" style={delay(0)}>
             <span aria-hidden="true" className="h-2 w-2 rounded-full bg-sun ring-4 ring-sun/30" />
             {hero.eyebrow}
           </p>
 
-          <h1 id="hero-title" className="display type-hero enter-rise mt-6 text-navy lg:text-[clamp(4rem,7.2vw,7.6rem)]">
+          <h1 id="hero-title" className="display type-hero enter-rise mt-6 text-forest lg:text-[clamp(4rem,7.2vw,7.6rem)]">
             {hero.headline.before}{" "}
             <span className="relative isolate inline-block whitespace-nowrap">
               <em>{hero.headline.emphasis}</em>
@@ -31,7 +31,7 @@ export function Hero() {
           </h1>
 
           {/* Moves but never fades: on phones this paragraph is the largest element, so it must be visible at first paint. */}
-          <p className="type-lede enter-rise mt-8 max-w-[34rem] text-muted" style={delay(80)}>
+          <p className="type-lede enter-rise mt-8 max-w-[34rem] text-ink-soft" style={delay(80)}>
             {hero.lede}
           </p>
 

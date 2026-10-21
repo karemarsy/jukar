@@ -29,11 +29,11 @@ export function Gallery({ number = "04" }: { number?: string }) {
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-8">
             <SectionLabel number={number}>{label}</SectionLabel>
-            <h2 id="gallery-title" className="display type-section reveal mt-8 text-navy">
+            <h2 id="gallery-title" className="display type-section reveal mt-8 text-forest">
               {gallerySection.title}
             </h2>
           </div>
-          <p className="type-lede max-w-md text-muted lg:col-span-4 lg:justify-self-end">{intro}</p>
+          <p className="type-lede max-w-md text-ink-soft lg:col-span-4 lg:justify-self-end">{intro}</p>
         </div>
 
         <GalleryLightbox items={items} />

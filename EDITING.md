@@ -59,16 +59,17 @@ Only change the words between the two `"`.
 Near the top of the file is a list of the website's colours:
 
 ```
---color-ivory: #f7f4ed;      ← page background
---color-navy: #142b4a;       ← headlines, main text, dark sections
---color-blue: #4268f5;       ← buttons and accents
---color-blue-deep: #2c4fd8;  ← blue text (labels, links)
---color-sage: #dcebe0;       ← soft green backgrounds
---color-sun: #f3c969;        ← yellow highlights and the closing section
---color-muted: #565f72;      ← grey secondary text
+--color-paper: #f6f0e4;      ← page background (ivory)
+--color-paper-deep: #ece2cf; ← soft panels and alternate sections
+--color-forest: #1f3b2d;     ← headlines, main text, buttons, dark sections
+--color-clay: #b4502d;       ← terracotta accents (big numbers, lines)
+--color-clay-ink: #943d1f;   ← terracotta text (labels, links)
+--color-sun: #f2b33d;        ← yellow highlights and the closing section
+--color-ink-soft: #4b4d45;   ← grey secondary text
+--color-ink: #1c1e1a;        ← footer background
 ```
 
-Replace a colour code (like `#142b4a`) with a new one. You can pick colours and get their codes at
+Replace a colour code (like `#1f3b2d`) with a new one. You can pick colours and get their codes at
 **https://htmlcolorcodes.com**. Keep the `#` and the `;` at the end.
 
 Tip: keep text dark on light backgrounds so it stays easy to read. Every current colour pair was

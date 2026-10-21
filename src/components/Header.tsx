@@ -93,7 +93,7 @@ export function Header() {
         aria-hidden="true"
         className={`absolute inset-0 transition-[opacity,box-shadow] duration-300 ${
           scrolled || open
-            ? "bg-ivory/85 opacity-100 shadow-[0_1px_0_rgb(20_43_74/0.08)] backdrop-blur-md"
+            ? "bg-paper/85 opacity-100 shadow-[0_1px_0_rgb(31_59_45/0.08)] backdrop-blur-md"
             : "opacity-0"
         }`}
       />
@@ -112,13 +112,13 @@ export function Header() {
                     href={item.href}
                     aria-current={isActive ? "true" : undefined}
                     className={`group relative block rounded-full px-4 py-2 text-[0.95rem] font-medium transition-colors duration-200 ${
-                      isActive ? "text-navy" : "text-muted hover:text-navy"
+                      isActive ? "text-forest" : "text-ink-soft hover:text-forest"
                     }`}
                   >
                     {item.label}
                     <span
                       aria-hidden="true"
-                      className={`absolute inset-x-4 -bottom-0.5 h-[2px] origin-left rounded-full bg-blue transition-transform duration-300 ease-[var(--ease-out-soft)] ${
+                      className={`absolute inset-x-4 -bottom-0.5 h-[2px] origin-left rounded-full bg-clay transition-transform duration-300 ease-[var(--ease-out-soft)] ${
                         isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-50"
                       }`}
                     />
@@ -136,7 +136,7 @@ export function Header() {
           <button
             ref={toggleRef}
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full text-navy transition-colors hover:bg-navy/8 lg:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full text-forest transition-colors hover:bg-forest/8 lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -153,16 +153,16 @@ export function Header() {
         ref={panelRef}
         data-menu-focus
         inert={!open}
-        className={`fixed inset-x-0 top-[4.25rem] bottom-0 overflow-y-auto bg-ivory transition-[opacity,transform,visibility] duration-300 ease-[var(--ease-out-soft)] motion-reduce:transition-none lg:hidden ${
+        className={`fixed inset-x-0 top-[4.25rem] bottom-0 overflow-y-auto bg-paper transition-[opacity,transform,visibility] duration-300 ease-[var(--ease-out-soft)] motion-reduce:transition-none lg:hidden ${
           open ? "visible translate-y-0 opacity-100" : "invisible -translate-y-3 opacity-0"
         }`}
       >
         <nav aria-label="Main" className="shell flex min-h-full flex-col pt-6 pb-10">
-          <ol className="divide-y divide-navy/10 border-y border-navy/10">
+          <ol className="divide-y divide-forest/10 border-y border-forest/10">
             {navigation.map((item, i) => (
               <li key={item.href}>
-                <a href={item.href} onClick={() => close(false)} className="flex items-baseline gap-4 py-5 text-navy">
-                  <span className="font-display text-lg text-blue-deep italic">0{i + 1}</span>
+                <a href={item.href} onClick={() => close(false)} className="flex items-baseline gap-4 py-5 text-forest">
+                  <span className="font-display text-lg text-clay-ink italic">0{i + 1}</span>
                   <span className="display text-[2.4rem]">{item.label}</span>
                 </a>
               </li>
@@ -172,7 +172,7 @@ export function Header() {
             {hero.primaryCta}
             <Icon name="arrow" className="btn-arrow h-5 w-5" />
           </a>
-          <p className="hand mt-auto pt-10 text-center text-2xl text-navy/70">{organization.tagline}</p>
+          <p className="hand mt-auto pt-10 text-center text-2xl text-forest/70">{organization.tagline}</p>
         </nav>
       </div>
     </header>

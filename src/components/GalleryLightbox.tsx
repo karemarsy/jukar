@@ -77,7 +77,7 @@ export function GalleryLightbox({ items }: { items: LightboxItem[] }) {
         />
       )}
       {item.aiGenerated && <AiBadge className="bottom-3 left-3" />}
-      <span className="absolute top-3 right-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-navy opacity-0 shadow-sm transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100">
+      <span className="absolute top-3 right-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-forest opacity-0 shadow-sm transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100">
         <Icon name="expand" className="h-[1.1rem] w-[1.1rem]" />
       </span>
       <span className="sr-only">View larger</span>
@@ -85,9 +85,9 @@ export function GalleryLightbox({ items }: { items: LightboxItem[] }) {
   );
 
   const caption = (item: LightboxItem) => (
-    <figcaption className="mt-4 flex gap-4 border-t border-navy/15 pt-3">
-      <span className="flex-1 font-display text-[1.25rem] leading-snug text-navy">{item.caption}</span>
-      {item.meta && <span className="label shrink-0 pt-1 text-muted">{item.meta}</span>}
+    <figcaption className="mt-4 flex gap-4 border-t border-forest/15 pt-3">
+      <span className="flex-1 font-display text-[1.25rem] leading-snug text-forest">{item.caption}</span>
+      {item.meta && <span className="label shrink-0 pt-1 text-ink-soft">{item.meta}</span>}
     </figcaption>
   );
 
@@ -129,12 +129,12 @@ export function GalleryLightbox({ items }: { items: LightboxItem[] }) {
             swipeStart.current = null;
             if (Math.abs(dx) > 60) step(dx < 0 ? 1 : -1);
           }}
-          className="m-0 h-dvh max-h-none w-full max-w-none bg-navy-deep/95 p-0 text-ivory backdrop:bg-navy-deep/70 open:flex open:flex-col"
+          className="m-0 h-dvh max-h-none w-full max-w-none bg-ink/95 p-0 text-paper backdrop:bg-ink/70 open:flex open:flex-col"
         >
           {current && index !== null && (
             <>
               <div className="flex items-center justify-between px-4 py-3 sm:px-6">
-                <p className="label text-ivory/75" aria-live="polite">
+                <p className="label text-paper/75" aria-live="polite">
                   {index + 1} / {items.length}
                 </p>
                 <button
@@ -142,7 +142,7 @@ export function GalleryLightbox({ items }: { items: LightboxItem[] }) {
                   onClick={close}
                   autoFocus
                   aria-label="Close"
-                  className="inline-flex h-12 w-12 items-center justify-center rounded-full text-ivory transition-colors hover:bg-white/10 focus-visible:outline-sun"
+                  className="inline-flex h-12 w-12 items-center justify-center rounded-full text-paper transition-colors hover:bg-white/10 focus-visible:outline-sun"
                 >
                   <Icon name="close" className="h-6 w-6" />
                 </button>
@@ -168,7 +168,7 @@ export function GalleryLightbox({ items }: { items: LightboxItem[] }) {
                     />
                     <figcaption className="mt-5 max-w-2xl text-center">
                       <span className="block font-display text-[1.5rem] leading-snug">{current.caption}</span>
-                      {current.aiGenerated && <span className="mt-1 block text-sm text-ivory/70">AI-generated illustration</span>}
+                      {current.aiGenerated && <span className="mt-1 block text-sm text-paper/70">AI-generated illustration</span>}
                     </figcaption>
                   </m.figure>
                 </AnimatePresence>
@@ -179,7 +179,7 @@ export function GalleryLightbox({ items }: { items: LightboxItem[] }) {
                       type="button"
                       onClick={() => step(-1)}
                       aria-label="Previous picture"
-                      className="absolute left-2 hidden h-12 w-12 items-center justify-center rounded-full bg-white/10 text-ivory transition-colors hover:bg-white/20 focus-visible:outline-sun sm:inline-flex"
+                      className="absolute left-2 hidden h-12 w-12 items-center justify-center rounded-full bg-white/10 text-paper transition-colors hover:bg-white/20 focus-visible:outline-sun sm:inline-flex"
                     >
                       <Icon name="chevron-left" className="h-6 w-6" />
                     </button>
@@ -187,7 +187,7 @@ export function GalleryLightbox({ items }: { items: LightboxItem[] }) {
                       type="button"
                       onClick={() => step(1)}
                       aria-label="Next picture"
-                      className="absolute right-2 hidden h-12 w-12 items-center justify-center rounded-full bg-white/10 text-ivory transition-colors hover:bg-white/20 focus-visible:outline-sun sm:inline-flex"
+                      className="absolute right-2 hidden h-12 w-12 items-center justify-center rounded-full bg-white/10 text-paper transition-colors hover:bg-white/20 focus-visible:outline-sun sm:inline-flex"
                     >
                       <Icon name="chevron-right" className="h-6 w-6" />
                     </button>

@@ -13,9 +13,9 @@ export function LogoMark({ className, ...props }: SVGProps<SVGSVGElement>) {
   );
 }
 
-export function Logo({ className = "", tone = "navy" }: { className?: string; tone?: "navy" | "ivory" }) {
+export function Logo({ className = "", tone = "forest" }: { className?: string; tone?: "forest" | "paper" }) {
   return (
-    <span className={`inline-flex items-center gap-2 ${tone === "ivory" ? "text-ivory" : "text-navy"} ${className}`}>
+    <span className={`inline-flex items-center gap-2 ${tone === "paper" ? "text-paper" : "text-forest"} ${className}`}>
       <LogoMark className="h-8 w-8 shrink-0" />
       <span className="font-display text-[1.9rem] leading-none tracking-tight italic">jukar</span>
     </span>
@@ -27,16 +27,16 @@ export function Logo({ className = "", tone = "navy" }: { className?: string; to
 export function SectionLabel({
   number,
   children,
-  tone = "navy",
+  tone = "forest",
   className = "",
 }: {
   number?: string;
   children: ReactNode;
-  tone?: "navy" | "ivory";
+  tone?: "forest" | "paper";
   className?: string;
 }) {
   return (
-    <p className={`label flex items-center gap-3 ${tone === "ivory" ? "text-sun" : "text-blue-deep"} ${className}`}>
+    <p className={`label flex items-center gap-3 ${tone === "paper" ? "text-sun" : "text-clay-ink"} ${className}`}>
       {number && <span className="font-display text-lg font-normal tracking-normal normal-case italic">{number}</span>}
       <span aria-hidden="true" className="h-px w-8 bg-current opacity-50" />
       <span>{children}</span>
@@ -54,7 +54,7 @@ export function AiBadge({ className = "", compact = false }: { className?: strin
   return (
     <span
       aria-hidden="true"
-      className={`pointer-events-none absolute rounded-full bg-navy/75 font-sans font-medium tracking-wide whitespace-nowrap text-ivory backdrop-blur-sm ${
+      className={`pointer-events-none absolute rounded-full bg-forest/75 font-sans font-medium tracking-wide whitespace-nowrap text-paper backdrop-blur-sm ${
         compact ? "px-2 py-0.5 text-[0.62rem]" : "px-2.5 py-1 text-[0.7rem]"
       } ${className}`}
     >

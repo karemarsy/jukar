@@ -16,17 +16,17 @@ function WhereItGoes() {
         <path
           d="M24 65h166c24 0 28-42 54-42h14M190 65c24 0 28 42 54 42h14"
           fill="none"
-          stroke="var(--color-ivory)"
+          stroke="var(--color-paper)"
           strokeOpacity=".5"
           strokeWidth="1.8"
           strokeDasharray="4 6"
           strokeLinecap="round"
         />
         <circle cx="20" cy="65" r="10" fill="var(--color-sun)" />
-        <circle cx="264" cy="23" r="6" fill="var(--color-ivory)" />
-        <circle cx="264" cy="107" r="6" fill="var(--color-ivory)" />
+        <circle cx="264" cy="23" r="6" fill="var(--color-paper)" />
+        <circle cx="264" cy="107" r="6" fill="var(--color-paper)" />
         {/* Font sizes are in SVG units: the figure shrinks on phones, so they start generous. */}
-        <g fill="var(--color-ivory)" fontSize="20" style={{ fontFamily: "var(--font-sans)" }}>
+        <g fill="var(--color-paper)" fontSize="20" style={{ fontFamily: "var(--font-sans)" }}>
           <text x="277" y="30">{activities.school.kicker}</text>
           <text x="277" y="114">{activities.care.kicker}</text>
         </g>
@@ -47,18 +47,18 @@ function MobileMoneyCard({ method }: { method: AvailableMobileMoney }) {
     <div>
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="label text-blue-deep">Mobile Money</p>
-          <h3 className="display mt-2 text-[2.4rem] leading-none text-navy">{method.provider}</h3>
+          <p className="label text-clay-ink">Mobile Money</p>
+          <h3 className="display mt-2 text-[2.4rem] leading-none text-forest">{method.provider}</h3>
         </div>
-        <span aria-hidden="true" className="mt-1 inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-sun text-navy">
+        <span aria-hidden="true" className="mt-1 inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-sun text-forest">
           <Icon name="phone" className="h-6 w-6" />
         </span>
       </div>
 
       {/* Who receives it — always visible, with a copy button for the number */}
-      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-[1rem] bg-sage px-4 py-3">
-        <p className="text-navy">
-          <span className="block text-sm text-muted">Send to</span>
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-[1rem] bg-paper-deep px-4 py-3">
+        <p className="text-forest">
+          <span className="block text-sm text-ink-soft">Send to</span>
           <strong className="block font-semibold">{method.recipientName}</strong>
           {recipientId && <span className="block text-lg font-semibold tabular-nums">{recipientId}</span>}
           {reference && (
@@ -86,9 +86,9 @@ function MobileMoneyCard({ method }: { method: AvailableMobileMoney }) {
       )}
 
       {method.ussdCode && !method.ussdTemplate && (
-        <div className="mt-6 rounded-[1.25rem] border border-navy/12 bg-ivory p-5">
-          <p className="label text-muted">Dial this code</p>
-          <p className="mt-2 text-xl font-semibold break-all text-navy tabular-nums">{method.ussdCode}</p>
+        <div className="mt-6 rounded-[1.25rem] border border-forest/12 bg-paper p-5">
+          <p className="label text-ink-soft">Dial this code</p>
+          <p className="mt-2 text-xl font-semibold break-all text-forest tabular-nums">{method.ussdCode}</p>
           <div className="mt-4 flex flex-col gap-2 sm:flex-row">
             {method.dialHref && (
               <a href={method.dialHref} className="btn btn-primary">
@@ -105,10 +105,10 @@ function MobileMoneyCard({ method }: { method: AvailableMobileMoney }) {
       <ol className="mt-7 space-y-3">
         {support.steps.map((step, i) => (
           <li key={step} className="grid grid-cols-[2rem_1fr] items-baseline gap-2">
-            <span aria-hidden="true" className="display text-[1.6rem] leading-none text-blue-deep italic">
+            <span aria-hidden="true" className="display text-[1.6rem] leading-none text-clay-ink italic">
               {i + 1}
             </span>
-            <span className="text-[1.02rem] leading-relaxed text-navy">
+            <span className="text-[1.02rem] leading-relaxed text-forest">
               {step.includes("{name}") ? (
                 <>
                   {step.split("{name}")[0]}
@@ -124,12 +124,12 @@ function MobileMoneyCard({ method }: { method: AvailableMobileMoney }) {
       </ol>
 
       {contacts.length > 0 && (
-        <p className="mt-7 border-t border-navy/10 pt-5 text-[0.95rem] text-muted">
+        <p className="mt-7 border-t border-forest/10 pt-5 text-[0.95rem] text-ink-soft">
           {support.questions}{" "}
           {contacts.map((c, i) => (
             <span key={c.kind}>
               {i > 0 && " · "}
-              <a href={c.href} className="link font-medium whitespace-nowrap text-blue-deep">
+              <a href={c.href} className="link font-medium whitespace-nowrap text-clay-ink">
                 {c.value}
               </a>
             </span>
@@ -147,33 +147,33 @@ export function Support({ number = "06" }: { number?: string }) {
   const anyAvailable = mm.available || card.available;
 
   return (
-    <section id="support" aria-labelledby="support-title" className="on-dark relative overflow-hidden bg-navy text-ivory">
+    <section id="support" aria-labelledby="support-title" className="on-dark relative overflow-hidden bg-forest text-paper">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-40 -right-40 h-[36rem] w-[36rem] rounded-full bg-blue/25 blur-3xl"
+        className="pointer-events-none absolute -top-40 -right-40 h-[36rem] w-[36rem] rounded-full bg-sun/10 blur-3xl"
       />
       {/* On phones the payment card follows the intro directly; on desktop it spans both left-hand blocks. */}
       <div className="shell relative grid gap-12 py-24 sm:py-32 lg:grid-cols-12 lg:grid-rows-[auto_1fr] lg:gap-x-16 lg:gap-y-0 lg:py-40 [&>*]:min-w-0">
         <div className="lg:col-span-5">
-          <SectionLabel number={number} tone="ivory">
+          <SectionLabel number={number} tone="paper">
             {support.label}
           </SectionLabel>
           <h2 id="support-title" className="display type-section mt-8">
             {support.title}
           </h2>
-          <p className="type-lede mt-7 max-w-md text-ivory/80">{support.lede}</p>
+          <p className="type-lede mt-7 max-w-md text-paper/80">{support.lede}</p>
         </div>
 
         <div className="lg:col-span-7 lg:col-start-6 lg:row-span-2 lg:row-start-1">
-          <div className="on-light relative rounded-[2rem] bg-white p-5 text-navy shadow-[0_60px_100px_-50px_rgb(0_0_0/0.7)] min-[360px]:p-6 sm:p-10">
+          <div className="on-light relative rounded-[2rem] bg-white p-5 text-forest shadow-[0_60px_100px_-50px_rgb(0_0_0/0.7)] min-[360px]:p-6 sm:p-10">
             {mm.available ? (
               <MobileMoneyCard method={mm} />
             ) : (
               !card.available && (
                 <div>
-                  <p className="label text-blue-deep">Contributions</p>
-                  <h3 className="display mt-3 text-[clamp(2rem,4vw,2.8rem)] leading-tight text-navy">{support.unavailableTitle}</h3>
-                  <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">{support.unavailableBody}</p>
+                  <p className="label text-clay-ink">Contributions</p>
+                  <h3 className="display mt-3 text-[clamp(2rem,4vw,2.8rem)] leading-tight text-forest">{support.unavailableTitle}</h3>
+                  <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">{support.unavailableBody}</p>
                   <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                     <ShareButton text={closing.shareText} className="btn btn-primary" />
                     {contacts.slice(0, 1).map((c) => (
@@ -188,14 +188,14 @@ export function Support({ number = "06" }: { number?: string }) {
             )}
 
             {card.available && (
-              <div className={mm.available ? "mt-8 border-t border-navy/12 pt-7" : ""}>
-                <p className="label text-blue-deep">{mm.available ? "Or pay by card" : "Pay by card"}</p>
+              <div className={mm.available ? "mt-8 border-t border-forest/12 pt-7" : ""}>
+                <p className="label text-clay-ink">{mm.available ? "Or pay by card" : "Pay by card"}</p>
                 <a href={card.checkoutUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary mt-4">
                   Pay by card with {card.provider}
                   <Icon name="external" className="h-5 w-5" />
                   <span className="sr-only">(opens in a new tab)</span>
                 </a>
-                <p className="mt-3 text-[0.95rem] text-muted">
+                <p className="mt-3 text-[0.95rem] text-ink-soft">
                   You&apos;ll complete your payment on {card.provider}&apos;s secure checkout page. Jukar never sees your card
                   details.
                 </p>
@@ -203,7 +203,7 @@ export function Support({ number = "06" }: { number?: string }) {
             )}
           </div>
           {anyAvailable && (
-            <p className="mt-6 max-w-xl text-[0.95rem] text-ivory/70">
+            <p className="mt-6 max-w-xl text-[0.95rem] text-paper/70">
               Jukar is a family-led initiative. Contributions are gifts to its education work. This website never sees or
               confirms your payment — MTN&apos;s SMS is your confirmation.
             </p>
@@ -216,7 +216,7 @@ export function Support({ number = "06" }: { number?: string }) {
             <span className="hand text-5xl text-sun" lang="rw">
               {support.thanks}
             </span>
-            <span className="text-ivory/70">— {support.thanksTranslation.toLowerCase()}</span>
+            <span className="text-paper/70">— {support.thanksTranslation.toLowerCase()}</span>
           </p>
         </div>
       </div>
